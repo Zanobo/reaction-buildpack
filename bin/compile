@@ -201,17 +201,17 @@ for plugins in "${PLUGIN_SUB_DIRS[@]}"; do
     if [[ -f "$dir/client/index.js" ]]; then
       IMPORT_PATH=$(echo "$dir/client/index.js" | cut -c2- | cut -d \/ -f "3 4 5 6 7 8 9")
       echo $IMPORT_PATH
-      echo "import \"/$IMPORT_PATH\";" >> $CLIENT_PLUGINS_FILE
+      echo "import \"$APP_CHECKOUT_DIR/$IMPORT_PATH\";" >> $CLIENT_PLUGINS_FILE
     fi
     if [[ -f "$dir/server/index.js" ]]; then
       IMPORT_PATH=$(echo "$dir/server/index.js" | cut -c2- | cut -d \/ -f "3 4 5 6 7 8 9")
       echo $IMPORT_PATH
-      echo "import \"$/$IMPORT_PATH\";" >> $SERVER_PLUGINS_FILE
+      echo "import \"$APP_CHECKOUT_DIR/$IMPORT_PATH\";" >> $SERVER_PLUGINS_FILE
     fi
     if [[ -f "$dir/register.js" ]]; then
       IMPORT_PATH=$(echo "$dir/register.js" | cut -c2- | cut -d \/ -f "3 4 5 6 7 8 9")
       echo $IMPORT_PATH
-      echo "import \"/$IMPORT_PATH\";" >> $SERVER_PLUGINS_FILE
+      echo "import \"$APP_CHECKOUT_DIR/$IMPORT_PATH\";" >> $SERVER_PLUGINS_FILE
     fi
   done
 done
