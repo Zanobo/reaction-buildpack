@@ -213,7 +213,9 @@ for plugins in "${PLUGIN_SUB_DIRS[@]}"; do
   done
 done
 
-ls $APP_SOURCE_DIR
+
+cat $APP_SOURCE_DIR/server/plugins.js
+cat $APP_SOURCE_DIR/client/plugins.js
 
 
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR during
