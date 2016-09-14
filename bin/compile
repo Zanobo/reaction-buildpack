@@ -213,7 +213,7 @@ for plugins in "${PLUGIN_SUB_DIRS[@]}"; do
   done
 done
 
-ls
+ls $APP_CHECKOUT_DIR
 
 
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR during
