@@ -178,7 +178,7 @@ fi
 # Run the reaction plugin loader before building
 #
 
-METEOR_NPM install reaction-cli
+$METEOR_NPM install reaction-cli
 node_modules/.bin/reaction plugins load
 
 # set the plugin import file paths
