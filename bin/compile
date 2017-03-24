@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #
-# Heroku buildpack for Meteor
+# Heroku buildpack for Reaction Commerce
 #
+
 
 # fail fast.
 set -e
