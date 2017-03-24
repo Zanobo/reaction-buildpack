@@ -4,4 +4,10 @@
 # Heroku buildpack for Reaction Commerce
 #
 
-echo "Node.js" && exit 0
+# this pack is valid for apps with a .reaction directory at root
+if [ -d $1/.reaction ]; then
+  echo "Reaction Commerce"
+  exit 0
+else
+  exit 1
+fi
