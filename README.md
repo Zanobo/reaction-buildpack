@@ -1,15 +1,11 @@
-# Meteor Buildpack Horse
+# Reaction Commerce Buildpack
 
-[![Horse](https://i.imgur.com/YhIL9zM.jpg)](https://commons.wikimedia.org/wiki/File:Draw-Costa_Rican-2smallest.jpg)
-
-A heroku buildpack for Meteor v1+, designed to be as simple and readable as possible.
-
-To use this with your meteor app and heroku:
+To use this with heroku:
 
 1. Set up your app to [deploy to heroku with git](https://devcenter.heroku.com/articles/git).
 2. Set this repository as the buildpack URL:
 
-        heroku buildpacks:set https://github.com/AdmitHub/meteor-buildpack-horse.git
+        heroku buildpacks:set https://github.com/swrdfish/meteor-buildpack-horse.git
 
 3. Add the MongoLab addon:
         
@@ -60,16 +56,3 @@ if you need to in custom extras.
 ## Tips & Tricks
 
 Please help us add tips and tricks to the [wiki](https://github.com/AdmitHub/meteor-buildpack-horse/wiki) for further help, like usage with Dokku or other environments.
-
-## Why horse?
-
-There are a gazillian forks and branches of various buildpacks remixing the
-words "heroku", "buildpack", and "meteor", many of which are abandoned or
-outdated or broken, and it's really hard to keep them straight.
-
-So this one is the horse one.
-
-README image credit: wikicommons contributor [Arsdelicata](https://commons.wikimedia.org/wiki/User:Arsdelicata)
-
-<a href="https://zenhub.com"><img src="https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png"></a>
-
