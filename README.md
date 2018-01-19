@@ -31,6 +31,19 @@ The following are some important environment variables for bundling and running 
  - `BUILDPACK_CLEAR_CACHE`: This buildpack stores the meteor installation in the [CACHE_DIR](https://devcenter.heroku.com/articles/buildpack-api#caching) to speed up subsequent builds. Set `BUILDPACK_CLEAR_CACHE=1` to clear this cache on startup.
  - `BUILD_OPTIONS`: Set to any additional options you'd like to add to the invocation of `meteor build`, for example `--debug` or `--allow-incompatible-update`.
 
+### Boot proxy
+
+Sometimes reaction takes too much time to start and Heroku thinks that there's a problem with your app. To sidestep this
+we have a simple proxy that answers every request until it's ready.
+
+It accepts the following environment variables:
+
+ - `USE_BOOT_PROXY`: Set `USE_BOOT_PROXY=1` to enable it. It's disabled by default.
+ - `PING_PATH`: The route we use to test if your app is ready. Defaults to `/`. You need to add a leading slash.
+ - `PING_INTERVAL`: Interval between probes, in seconds. Defaults to 1 second.
+ - `BOOT_TIMEOUT`: Maximum time to wait for your app in seconds. Defaults to 3600 (1 Hour). If reached we exit with an
+   error.
+
 ## Extras
 
 The basic buildpack should function correctly for any normal-ish meteor app,

@@ -183,6 +183,13 @@ $METEOR_NPM install reaction-cli
 node_modules/.bin/reaction plugins load
 
 
+#
+# Install our boot proxy
+#
+
+$METEOR_NPM install --save http-proxy
+cp "$BUILDPACK_DIR/bin/boot_proxy.js" "$COMPILE_DIR/bin"
+
 # Now on to bundling. Don't put the bundle in $APP_CHECKOUT_DIR during
 # bundling, or it will recurse, trying to bundle up its own bundling.
 
