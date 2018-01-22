@@ -109,6 +109,15 @@ if (USE_BOOT_PROXY) {
     proxy.ws(req, socket, head);
   });
 
+  proxy.on('error', function (err, req, res) {
+    res.writeHead(500, {
+      'Content-Type': 'text/plain'
+    });
+
+    console.error(err);
+    res.end('There was an error');
+  });
+
   proxyServer.listen(PORT);
 
   setTimeout(function () {
