@@ -12,6 +12,7 @@ var SUBPROCESS_PORT = parseInt(process.env.SUBPROCESS_PORT) || 3030;
 var PING_PATH = process.env.PING_PATH || '/';
 var PING_INTERVAL = parseInt(process.env.PING_PATH) || 1;
 var BOOT_TIMEOUT = parseInt(process.env.BOOT_TIMEOUT) || 60 * 60;
+var BOOTING_URL = process.env.BOOTING_URL;
 
 
 var ROOT_URL = process.env.ROOT_URL;
@@ -89,6 +90,7 @@ if (USE_BOOT_PROXY) {
 
 
 
+  var bootingProxy;
   var proxy = new httpProxy.createProxyServer({
     target: {
       port: SUBPROCESS_PORT,
@@ -96,17 +98,44 @@ if (USE_BOOT_PROXY) {
     ws: true,
   });
 
+  if (BOOTING_URL) {
+    bootingProxy = new httpProxy.createProxyServer({
+      target: BOOTING_URL,
+      changeOrigin: true,
+      ws: true,
+    });
+
+    bootingProxy.on('error', function (err, req, res) {
+      res.writeHead(500, {
+        'Content-Type': 'text/plain'
+      });
+
+      console.error(err);
+      res.end('There was an error');
+    });
+  }
+
   var proxyServer = http.createServer(function (req, res) {
     if (booted) {
       proxy.web(req, res);
     } else {
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end('Waiting for app to boot...');
+      if (bootingProxy) {
+        bootingProxy.web(req, res);
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Waiting for app to boot...');
+      }
     }
   });
 
   proxyServer.on('upgrade', function (req, socket, head) {
-    proxy.ws(req, socket, head);
+    if (booted) {
+      proxy.ws(req, socket, head);
+    } else {
+      if (bootingProxy) {
+        bootingProxy.ws(req, socket, head);
+      }
+    }
   });
 
   proxy.on('error', function (err, req, res) {

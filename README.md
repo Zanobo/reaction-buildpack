@@ -43,6 +43,7 @@ It accepts the following environment variables:
  - `PING_INTERVAL`: Interval between probes, in seconds. Defaults to 1 second.
  - `BOOT_TIMEOUT`: Maximum time to wait for your app in seconds. Defaults to 3600 (1 Hour). If reached we exit with an
    error.
+ - `BOOTING_URL`: Proxies transparently to this url while your app is booting if provided.
 
 ## Extras
 
