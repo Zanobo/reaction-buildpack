@@ -165,13 +165,12 @@ fi
 # Related to https://github.com/meteor/meteor/issues/2796 and 
 # https://github.com/meteor/meteor/issues/2606.  Some packages only build their
 # assets at runtime, and thus they are not available for bundling unless meteor
-# has been launched.  To opt-in to this, set BUILDPACK_PRELAUNCH_METEOR=1.
-if [ -n "${BUILDPACK_PRELAUNCH_METEOR+1}" ]; then
-  echo "-----> BUILDPACK_PRELAUNCH_METEOR: Pre-launching meteor to build packages assets"
+# has been launched.  To opt-in to this, set BUILDPACK_PRELAUNCH_REACTION=1.
+if [ -n "${BUILDPACK_PRELAUNCH_REACTION+1}" ]; then
+  echo "-----> BUILDPACK_PRELAUNCH_REACTION: Removing android"
   # Remove the Android platform because it fails due to the Android tools not
   # being installed, but leave the iOS platform because it's ignored.
   HOME=$METEOR_DIR $METEOR remove-platform android || true
-  HOME=$METEOR_DIR timeout -s9 60 $METEOR --settings settings.json || true
 fi
 
 
@@ -181,6 +180,13 @@ fi
 
 $METEOR_NPM install reaction-cli
 node_modules/.bin/reaction plugins load
+
+if [ -n "${BUILDPACK_PRELAUNCH_REACTION+1}" ]; then
+  echo "-----> BUILDPACK_PRELAUNCH_REACTION: Pre-launching reaction to build packages assets"
+  # If reaction takes more than this to run we just kill it
+  REACTION_TIMEOUT=${REACTION_TIMEOUT:-600}
+  HOME=$METEOR_DIR timeout -s9 $REACTION_TIMEOUT node_modules/.bin/reaction run || true
+fi
 
 
 #
