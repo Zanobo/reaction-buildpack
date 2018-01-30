@@ -185,7 +185,7 @@ if [ -n "${BUILDPACK_PRELAUNCH_REACTION+1}" ]; then
   echo "-----> BUILDPACK_PRELAUNCH_REACTION: Pre-launching reaction to build packages assets"
   # If reaction takes more than this to run we just kill it
   REACTION_TIMEOUT=${REACTION_TIMEOUT:-600}
-  HOME=$METEOR_DIR timeout -s9 $REACTION_TIMEOUT node_modules/.bin/reaction run || true
+  HOME=$METEOR_DIR MONGO_OPLOG_URL="" timeout -s9 $REACTION_TIMEOUT node_modules/.bin/reaction run || true
 fi
 
 
