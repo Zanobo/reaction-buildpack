@@ -106,6 +106,7 @@ fi
 if [ ! -e "$METEOR_DIR/.meteor/meteor" ]; then
   echo "-----> Installing meteor"
   curl -sS "https://install.meteor.com/?release=$APP_RELEASE" | HOME="$METEOR_DIR" /bin/sh
+  HOME=$METEOR_DIR $METEOR_DIR/.meteor/meteor help build || true
 fi
 METEOR="$METEOR_DIR/.meteor/meteor" # The meteor binary.
 
