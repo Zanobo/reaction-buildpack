@@ -65,6 +65,11 @@ if [ ! -d "$APP_SOURCE_DIR/.meteor" ]; then
   exit 1
 fi
 
+
+# Clean up files from previous builds
+rm -fr "$APP_SOURCE_DIR/.meteor/local" || true
+rm -fr "$APP_SOURCE_DIR/.meteor/heroku_build" || true
+
 APP_RELEASE=`cat "$APP_SOURCE_DIR/.meteor/release" | sed -e 's/METEOR@//'`
 
 # Where we will install meteor. Has to be outside the APP_CHECKOUT_DIR.
