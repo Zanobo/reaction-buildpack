@@ -18,10 +18,12 @@ var BOOTING_URL = process.env.BOOTING_URL;
 var ROOT_URL = process.env.ROOT_URL;
 var HEROKU_APP_NAME = process.env.HEROKU_APP_NAME;
 
-if (!ROOT_URL && HEROKU_APP_NAME) {
-  ROOT_URL = 'https://' + HEROKU_APP_NAME + '.herokuapp.com';
-} else {
-  ROOT_URL = 'http://localhost';
+if (ROOT_URL === undefined) {
+  if (HEROKU_APP_NAME) {
+    ROOT_URL = 'https://' + HEROKU_APP_NAME + '.herokuapp.com';
+  } else {
+    ROOT_URL = 'http://localhost';
+  }
 }
 
 
