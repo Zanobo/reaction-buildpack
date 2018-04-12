@@ -9,5 +9,5 @@ cat <<EOF
 addons:
   - mongolab
 default_process_types:
-  web: .meteor/heroku_build/bin/node .meteor/heroku_build/bin/boot_proxy.js .meteor/heroku_build/bin/node .meteor/heroku_build/app/main.js
+  web: .meteor/heroku_build/bin/node --optimize_for_size --max_old_space_size=4096 .meteor/heroku_build/bin/boot_proxy.js .meteor/heroku_build/bin/node --optimize_for_size --max_old_space_size=4096 .meteor/heroku_build/app/main.js
 EOF

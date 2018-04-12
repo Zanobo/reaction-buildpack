@@ -26,6 +26,10 @@ if (ROOT_URL === undefined) {
   }
 }
 
+function isFunction(functionToCheck) {
+ return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+}
+
 
 var child;
 function start_subprocess() {
@@ -141,12 +145,20 @@ if (USE_BOOT_PROXY) {
   });
 
   proxy.on('error', function (err, req, res) {
-    res.writeHead(500, {
-      'Content-Type': 'text/plain'
-    });
+    if(isFunction(res.writeHead)) {
+      res.writeHead(500, {
+        'Content-Type': 'text/plain'
+      });
+    } else {
+      console.error("proxy ::: res.writeHead is not a function")
+    }
 
     console.error(err);
-    res.end('There was an error');
+    if(isFunction(res.end)) {
+      res.end('There was an error');
+    } else {
+      console.error("proxy ::: res.end is not a function")
+    }
   });
 
   proxyServer.listen(PORT);
