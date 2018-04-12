@@ -159,6 +159,7 @@ if (USE_BOOT_PROXY) {
     // from https://github.com/karma-runner/karma/blob/ae05ea496b8fff1a316387f0b5919de673c5e274/lib/middleware/proxy.js#L60
     if (err.code === 'ECONNRESET' && req.socket.destroyed) {
       res.destroy();
+      return;
     }
 
     console.error(err);
