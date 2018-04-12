@@ -135,6 +135,10 @@ if (USE_BOOT_PROXY) {
   });
 
   proxyServer.on('upgrade', function (req, socket, head) {
+    // from https://github.com/websockets/ws/issues/1256#issuecomment-364988689
+    socket.on("error", function(err){
+      console.log(err);
+    });
     if (booted) {
       proxy.ws(req, socket, head);
     } else {
@@ -151,6 +155,10 @@ if (USE_BOOT_PROXY) {
       });
     } else {
       console.error("proxy ::: res.writeHead is not a function")
+    }
+    // from https://github.com/karma-runner/karma/blob/ae05ea496b8fff1a316387f0b5919de673c5e274/lib/middleware/proxy.js#L60
+    if (err.code === 'ECONNRESET' && req.socket.destroyed) {
+      res.destroy();
     }
 
     console.error(err);
